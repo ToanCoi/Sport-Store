@@ -1,0 +1,39 @@
+﻿<div class="menu">
+    <ul class="clearfix" id="menus">
+        @foreach(var menu in ViewBag.Menus) { 
+            <li class="menu-item dropdown">
+                <a href="#" class="menu-item_link">@menu.Name</a>
+                <ul class="sub-menu clearfix" id="">
+                    @{ 
+
+                        if(ViewBag.Home == true) {
+                            foreach(var submenu in (ViewBag.Submenus as List<SportStore.Models.Category>).Where(s => s.SportID == menu.ID)) {
+                                <li class="sub-menu_item"><a href="#">@submenu.Name</a></li>
+                            }
+
+                        } else {
+                            foreach (var submenu in (ViewBag.Submenus as List<SportStore.Models.Brand>))
+                            {
+                                <li class="sub-menu_item"><a href="#">@submenu.Name</a></li>
+                            }
+                        }
+                     }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.menu-item_link').hover(function () {
+            $(this).next().css("display", "block");
+        });
+
+        $('.menu-item_link').mouseout(function () {
+            $(this).next().css("display", "none");
+        });
+        
+    });
+</script>
+
